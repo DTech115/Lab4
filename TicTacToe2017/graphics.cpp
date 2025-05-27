@@ -6,7 +6,7 @@
 #include "logic.h"
 
 
-void set_graphics_x_o(int x, int y, logic &game_logic);
+void set_graphics_x_o(int x, int y, logic &game_logic, int &turn);
 void draw_board();
 void draw_x(int x, int y);
 void draw_o(int x, int y);
@@ -15,11 +15,13 @@ void turn_xo(int x, int y, int &turn, int boardx, int boardy, logic  &game_logic
 
 int main(void)
 {
-	logic  game_logic;
+	logic game_logic;
 	int posX = 0, posY = 0;
 	bool gameover = false;
 	ALLEGRO_DISPLAY *Screen = NULL;
 	int width = 640, height = 480;
+
+	static int turn = 0;
 
 	if (!al_init())
 	{
@@ -43,7 +45,7 @@ int main(void)
 	al_init_font_addon();
 	al_init_ttf_addon();
 
-	bool draw = false, done = false;;
+	bool draw = false, done = false;
 
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
@@ -57,9 +59,9 @@ int main(void)
 
 	game_logic.setup();
 	draw_board();
-	//game_message(gameover, game_logic);
 
 	al_flip_display();
+
 	while (!done && !gameover)
 	{
 		ALLEGRO_EVENT ev;
@@ -80,10 +82,10 @@ int main(void)
 		}
 		draw_board();
 		game_message(gameover, game_logic);
-		if (draw)
+		if (draw && turn == 0)
 		{
 
-			set_graphics_x_o(posX, posY, game_logic);
+			set_graphics_x_o(posX, posY, game_logic, turn);
 
 			draw = false;
 		}
@@ -139,9 +141,9 @@ void turn_xo(int x, int y, int &turn, int boardx, int boardy, logic  &game_logic
 		}
 	}
 }
-void set_graphics_x_o(int x, int y, logic &game_logic)
+void set_graphics_x_o(int x, int y, logic &game_logic, int &turn)
 {
-	static int turn = 0;
+	
 	if ((x<213) && (y<125))
 	{
 		turn_xo(106, 62, turn, 0, 0, game_logic);
