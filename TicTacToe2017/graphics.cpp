@@ -91,14 +91,13 @@ int main(void)
 				draw = false;
 			}
 			else if (turn == 1) {
-
 				srand(time(NULL));
 				int randX = rand() % width;
-				int randY = rand() % height;
+				int randY = rand() % 375;
 
+				set_graphics_x_o(randX, randY, game_logic, turn);
 
-
-				
+				draw = false;
 			}
 		}
 		al_flip_display();
@@ -150,6 +149,12 @@ void turn_xo(int x, int y, int &turn, int boardx, int boardy, logic  &game_logic
 		{
 			draw_o(x, y);
 			turn = 0;
+		}
+		else {
+			int randX = rand() % 640;
+			int randY = rand() % 375;
+
+			set_graphics_x_o(randX, randY, game_logic, turn);
 		}
 	}
 }
@@ -204,21 +209,21 @@ void game_message(bool &gameover, logic &game_logic)
 
 	if (tie == true)
 	{
-		al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "The game is a tie -- screen will close shortly");
+		//al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "The game is a tie -- screen will close shortly");
 		gameover = true;
 	}
 	else if (xwon == true)
 	{
-		al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "X won the game-- screen will close shortly");
+		//al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "X won the game-- screen will close shortly");
 		gameover = true;
 	}
 	else if (owon == true)
 	{
-		al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "O won the game-- screen will close shortly");
+		//al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "O won the game-- screen will close shortly");
 		gameover = true;
 	}
-	else
-		al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "Pick a Square");
+	/*else
+		al_draw_text(font, al_map_rgb(255, 255, 255), 1, 400, ALLEGRO_ALIGN_LEFT, "Pick a Square");*/
 
 }
 
