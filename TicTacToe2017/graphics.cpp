@@ -4,6 +4,7 @@
 #include <allegro5\allegro_primitives.h>	
 #include <allegro5\allegro_native_dialog.h> 
 #include "logic.h"
+#include <iostream>
 
 
 void set_graphics_x_o(int x, int y, logic &game_logic, int &turn);
@@ -82,12 +83,23 @@ int main(void)
 		}
 		draw_board();
 		game_message(gameover, game_logic);
-		if (draw && turn == 0)
+		if (draw)
 		{
+			if (turn == 0) {
+				set_graphics_x_o(posX, posY, game_logic, turn);
 
-			set_graphics_x_o(posX, posY, game_logic, turn);
+				draw = false;
+			}
+			else if (turn == 1) {
 
-			draw = false;
+				srand(time(NULL));
+				int randX = rand() % width;
+				int randY = rand() % height;
+
+
+
+				
+			}
 		}
 		al_flip_display();
 	}
